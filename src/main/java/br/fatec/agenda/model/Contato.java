@@ -17,10 +17,13 @@ public class Contato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(length = 60)
 	private String email;
-	@Column(length = 80)
+	
+	@Column(length = 80, nullable = false)
 	private String nome;
+	
 	@Column(length = 20)
 	private String telefone;
 
