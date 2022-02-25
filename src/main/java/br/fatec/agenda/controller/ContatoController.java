@@ -1,5 +1,6 @@
 package br.fatec.agenda.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.fatec.agenda.model.Contato;
 import br.fatec.agenda.service.ContatoService;
@@ -42,8 +44,11 @@ public class ContatoController implements ControllerInterface<Contato> {
 
 	@Override
 	@PostMapping
-	public ResponseEntity<Contato> post(@RequestBody Contato obj) {		
-		return ResponseEntity.ok(service.create(obj));
+	public ResponseEntity<Contato> post(@RequestBody Contato obj) {
+		service.create(obj);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(obj);
 	}
 
 	@Override
