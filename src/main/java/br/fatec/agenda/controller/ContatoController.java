@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -67,6 +69,21 @@ public class ContatoController implements ControllerInterface<Contato> {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@GetMapping("/numero")
+	public ResponseEntity<Long> count() {
+		return ResponseEntity.ok(service.countNumeroDeContatos());
+	}
+	
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<Page<Contato>> getByNome(Pageable pageable, @PathVariable("nome") String nome) {
+		return ResponseEntity.ok(service.findByNome(pageable, nome));
+	}
+	
+	@GetMapping("/email/{email}")
+	public ResponseEntity<Page<Contato>> getByEmail(Pageable pageable, @PathVariable("email") String email) {
+		return ResponseEntity.ok(service.findByEmail(pageable, email));
 	}
 
 }
