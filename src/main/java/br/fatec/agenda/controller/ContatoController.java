@@ -83,7 +83,7 @@ public class ContatoController implements ControllerInterface<Contato>{
 		return ResponseEntity.ok(service.findByNome(pageable, nome));
 	}
 
-	@GetMapping("/email/{nome}")
+	@GetMapping("/email/{email}")
 	public ResponseEntity<Page<Contato>> getByEmail(Pageable pageable, @PathVariable("email") String email) {
 		return ResponseEntity.ok(service.findByEmail(pageable, email));
 	}
