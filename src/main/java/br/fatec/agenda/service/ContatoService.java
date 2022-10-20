@@ -1,9 +1,10 @@
 package br.fatec.agenda.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.fatec.agenda.model.Contato;
@@ -28,8 +29,8 @@ public class ContatoService implements ServiceInterface<Contato>{
 	}
 
 	@Override
-	public List<Contato> findAll() {
-		return repository.findAll();
+	public Page<Contato> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	@Override
@@ -48,6 +49,18 @@ public class ContatoService implements ServiceInterface<Contato>{
 			return true;			
 		}
 		return false;
+	}
+
+	public Long numeroDeContatos() {
+		return repository.numeroDeContatos();
+	}
+	
+	public Page<Contato> findByNome(Pageable pageable, String nome) {
+		return repository.findByNomeContainingOrderByNome(pageable, nome);
+	}
+	
+	public Page<Contato> findByEmail(Pageable pageable, String email) {
+		return repository.findByEmailContainingOrderByEmail(pageable, email);
 	}
 
 }

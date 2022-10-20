@@ -1,13 +1,13 @@
 package br.fatec.agenda.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface ControllerInterface<T> {
-	ResponseEntity<List<T>> getAll();
-	ResponseEntity<?> get(Long id);
+	ResponseEntity<Page<T>> getAll(Pageable pageable);
+	ResponseEntity<T> get(Long id);
 	ResponseEntity<T> post(T obj);
-	ResponseEntity<?> put(T obj);
-	ResponseEntity<?> delete(Long id);
+	ResponseEntity<T> put(T obj);
+	ResponseEntity<Void> delete(Long id);
 }
